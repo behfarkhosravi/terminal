@@ -113,4 +113,19 @@ export const commands: Record<string, (args: string[]) => Promise<string> | stri
 
 Type 'help' to see list of available commands.
 `,
+  uptime: () => {
+    const now = new Date().getTime();
+    const diff = now - performance.timing.navigationStart;
+    const uptime = new Date(diff).toISOString().substr(11, 8);
+    return `Uptime: ${uptime}`;
+  },
+  ip: async () => {
+    try {
+      const response = await fetch('https://api.ipify.org?format=json');
+      const data = await response.json();
+      return `Your IP address is ${data.ip}`;
+    } catch (error) {
+      return `Could not fetch IP address. Details: ${error}`;
+    }
+  },
 };
