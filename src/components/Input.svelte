@@ -30,6 +30,7 @@
 
   const handleKeyDown = async (event: KeyboardEvent) => {
     if (event.key === 'Enter') {
+      command = command.toLowerCase(); // Convert command to lowercase
       const [commandName, ...args] = command.split(' ');
 
       if (import.meta.env.VITE_TRACKING_ENABLED === 'true') {
@@ -72,7 +73,7 @@
       event.preventDefault();
 
       const autoCompleteCommand = Object.keys(commands).find((cmd) =>
-        cmd.startsWith(command),
+        cmd.startsWith(command.toLowerCase()), // Ensure autocomplete matches lowercase
       );
 
       if (autoCompleteCommand) {
